@@ -28,7 +28,7 @@
 							<div class="col-md-10">
 								<div class="topic-content pull-right">
 									<h3>
-										<a href="topic.html">
+										<a href="topics/topic.php?id=<?php echo $id;?>">
 											<?php echo $topic->title; ?>
 										</a>
 									</h3>
