@@ -27,7 +27,7 @@ require "../includes/header.php";
           $_SESSION['user_id'] = $fetch['id'];
           // $_SESSION['name'] = $fetch['name'];
           $_SESSION['email'] = $fetch['email'];
-          $_SESSION['user_image'] = $fetch['image'];
+          $_SESSION['user_image'] = $fetch['avatar'];
           header("location:".APPURL.""); 
         } else {
           echo "<script>alert('Password is incorrect');</script>";
