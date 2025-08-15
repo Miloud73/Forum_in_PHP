@@ -10,6 +10,17 @@ require "../includes/header.php";
 		$stmt->execute(['id' => $topics_id]);
 		$singleTopic = $stmt->fetch(PDO::FETCH_OBJ);
 
+		if ($singleTopic) {
+        // Count topics by the same user
+			$stmtCount = $conn->prepare("SELECT COUNT(*) as countTopics FROM topics WHERE user_name = :user_name");
+			$stmtCount->execute(['user_name' => $singleTopic->user_name]);
+			$count = $stmtCount->fetch(PDO::FETCH_OBJ);
+    	}
+
+				$stmtReplies = $conn->prepare("SELECT * FROM replies WHERE topics_id = :id");
+		$stmtReplies->execute(['id' => $topics_id]);
+		$allReplies = $stmtReplies->fetch(PDO::FETCH_OBJ);
+
 	}
 	
 ?>
@@ -33,7 +44,7 @@ require "../includes/header.php";
 											<img class="avatar pull-left" src="../img/<?php echo htmlspecialchars($singleTopic->user_image)?>" />
 											<ul>
 												<li><strong><?php echo htmlspecialchars($singleTopic->user_name)?></strong></li>
-												<li>43 Posts</li>
+												<li><?php echo $count->countTopics; ?> Posts</li>
 												<li><a href="profile.php">Profile</a>
 											</ul>
 										</div>
