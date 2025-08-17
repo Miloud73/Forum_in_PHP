@@ -61,7 +61,7 @@ require "../includes/header.php";
 									</a>
 
 
-									<a class="btn btn-warning" href="#" role="button">delete</a>
+									<a class="btn btn-warning" href="update.php?topics_id=<?php echo $singleTopic->topics_id; ?>" role="button">Update</a>
 								</div>
 							</li>
 							
