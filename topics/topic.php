@@ -54,6 +54,14 @@ require "../includes/header.php";
 											<p><?php echo htmlspecialchars($singleTopic->body)?></p>
 										</div>
 									</div>
+									<a class="btn btn-danger" 
+										href="delete.php?topics_id=<?php echo $singleTopic->topics_id; ?>" 
+										onclick="return confirm('Are you sure you want to delete this topic?');">
+										Delete
+									</a>
+
+
+									<a class="btn btn-warning" href="#" role="button">delete</a>
 								</div>
 							</li>
 							
