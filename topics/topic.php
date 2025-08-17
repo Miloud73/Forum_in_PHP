@@ -54,6 +54,7 @@ require "../includes/header.php";
 											<p><?php echo htmlspecialchars($singleTopic->body)?></p>
 										</div>
 									</div>
+									<?php if($singleTopic->user_name == $_SESSION['username']) : ?>
 									<a class="btn btn-danger" 
 										href="delete.php?topics_id=<?php echo $singleTopic->topics_id; ?>" 
 										onclick="return confirm('Are you sure you want to delete this topic?');">
@@ -62,6 +63,7 @@ require "../includes/header.php";
 
 
 									<a class="btn btn-warning" href="update.php?topics_id=<?php echo $singleTopic->topics_id; ?>" role="button">Update</a>
+									<?php endif?>
 								</div>
 							</li>
 							
