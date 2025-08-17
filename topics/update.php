@@ -14,6 +14,10 @@ require "../includes/header.php";
 		$stmt->execute(['id' => $topics_id]);
 		$topic = $stmt->fetch(PDO::FETCH_OBJ);
 
+		if($topic->user_name !== $_SESSION['username']){
+			header("location: ".APPURL."");
+		}
+
 
 	}
 	if(isset($_POST['submit'])){
