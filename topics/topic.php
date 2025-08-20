@@ -15,8 +15,6 @@ if(isset($_GET['topics_id'])){
         $stmtCount->execute(['user_name' => $singleTopic->user_name]);
         $count = $stmtCount->fetch(PDO::FETCH_OBJ);
     }
-
-    // ✅ Fetch all replies
     $stmtReplies = $conn->prepare("SELECT * FROM replies WHERE topics_id = :id ORDER BY create_at ASC");
     $stmtReplies->execute(['id' => $topics_id]);
     $allReplies = $stmtReplies->fetchAll(PDO::FETCH_OBJ);
@@ -100,6 +98,16 @@ if(isset($_POST['submit'])){
                                             <p><?php echo htmlspecialchars($reply->reply); ?></p>
                                             <small>Posted on: <?php echo $reply->create_at; ?></small>
                                         </div>
+                                        <?php if($reply->user_name == $_SESSION['username']) : ?>
+                                            <a class="btn btn-danger" 
+                                            href="../replies/delete.php?id=<?php echo $reply->id; ?>" 
+                                            onclick="return confirm('Are you sure you want to delete this topic?');">
+                                                Delete
+                                            </a>
+                                            <a class="btn btn-warning" href="../replies/update.php?id=<?php echo $reply->id; ?>"  role="button">
+                                                Update
+                                            </a>
+                                        <?php endif ?>
                                     </div>
                                 </li>
                             <?php endforeach; ?>
