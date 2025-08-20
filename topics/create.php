@@ -17,11 +17,13 @@ require "../includes/header.php";
 			$category = $_POST['category'];
 			$body = $_POST['body'];
 			$user_name = $_SESSION['username'];
+			$user_image = $_SESSION['user_image'];
 				
-					$insert = $conn->prepare("INSERT INTO topics (title, category, body, user_name) 
-					VALUES (:title, :category, :body, :user_name)");
+					$insert = $conn->prepare("INSERT INTO topics (title, category, body, user_name, user_image) 
+					VALUES (:title, :category, :body, :user_name, :user_image)");
 					$insert->execute([
 						":user_name" => $user_name,
+						":user_image" => $user_image,
 						":title" => $title,
 						":body" => $body,
 						":category" => $category

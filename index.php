@@ -2,11 +2,22 @@
 <?php require"confing/confing.php" ?>
 <?php 
 	$topics = $conn->query(
-		"SELECT topics.topics_id as id,topics.title as title , topics.category as category , topics.user_name as user_name , topics.user_image as user_image , topics.create_at as create_at , COUNT(replies.topics_id) as count_reply  FROM topics LEFT JOIN replies ON topics.topics_id = replies.topics_id GROUP BY (replies.topics_id)"
-	);
-	$topics->execute();
+    "SELECT 
+        topics.topics_id AS id,
+        topics.title AS title,
+        topics.category AS category,
+        topics.user_name AS user_name,
+        topics.user_image AS user_image,
+        topics.create_at AS create_at,
+        COUNT(replies.reply) AS count_reply  
+     FROM topics 
+     LEFT JOIN replies ON topics.topics_id = replies.topics_id 
+     GROUP BY topics.topics_id
+     ORDER BY topics.create_at DESC"
+);
+$topics->execute();
+$allTopics = $topics->fetchAll(PDO::FETCH_OBJ);
 
-	$allTopics = $topics->fetchAll(PDO::FETCH_OBJ);
 ?>
 
     <div class="container">
@@ -23,7 +34,7 @@
 							<li class="topic">
 							<div class="row">
 							<div class="col-md-2">
-								<img class="avatar pull-left" src="img/<?php echo $topic->user_image; ?>" />
+								<img class="avatar pull-left" src="./img/<?php echo htmlspecialchars($topic->user_image)?>" />
 							</div>
 							<div class="col-md-10">
 								<div class="topic-content pull-right">
