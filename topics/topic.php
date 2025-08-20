@@ -18,7 +18,7 @@ if(isset($_GET['topics_id'])){
     $stmtReplies = $conn->prepare("SELECT * FROM replies WHERE topics_id = :id ORDER BY create_at ASC");
     $stmtReplies->execute(['id' => $topics_id]);
     $allReplies = $stmtReplies->fetchAll(PDO::FETCH_OBJ);
-}
+
 
 // for replies section
 if(isset($_POST['submit'])){
@@ -42,6 +42,7 @@ if(isset($_POST['submit'])){
         header("location:".APPURL."/topics/topic.php?topics_id=".$topics_id."");
         exit;
     }
+}
 }
 ?>
 <div class="container">
@@ -99,14 +100,15 @@ if(isset($_POST['submit'])){
                                             <small>Posted on: <?php echo $reply->create_at; ?></small>
                                         </div>
                                         <?php if($reply->user_name == $_SESSION['username']) : ?>
-                                            <a class="btn btn-danger" 
-                                            href="../replies/delete.php?id=<?php echo $reply->id; ?>" 
-                                            onclick="return confirm('Are you sure you want to delete this topic?');">
+                                           <a class="btn btn-danger" 
+                                                href="../replies/delete.php?id=<?php echo $reply->id; ?>&topics_id=<?php echo $reply->topics_id; ?>" 
+                                                onclick="return confirm('Are you sure you want to delete this reply?');">
                                                 Delete
                                             </a>
-                                            <a class="btn btn-warning" href="../replies/update.php?id=<?php echo $reply->id; ?>"  role="button">
+                                            <a class="btn btn-warning" href="../replies/update.php?id=<?php echo $reply->id; ?>&topics_id=<?php echo $reply->topics_id; ?>" role="button">
                                                 Update
                                             </a>
+
                                         <?php endif ?>
                                     </div>
                                 </li>
