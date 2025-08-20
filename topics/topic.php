@@ -42,6 +42,31 @@ if(isset($_POST['submit'])){
         header("location:".APPURL."/topics/topic.php?topics_id=".$topics_id."");
         exit;
     }
+
+if (isset($_POST['update_submit'])) {
+    $reply_id = $_POST['id'];
+    $updatedReply = trim($_POST['reply']);
+
+    if (!empty($updatedReply)) {
+        // Verify reply exists
+        $stmtCheck = $conn->prepare("SELECT * FROM replies WHERE id = :id");
+        $stmtCheck->execute(['id' => $reply_id]);
+        $replyData = $stmtCheck->fetch(PDO::FETCH_OBJ);
+
+        if ($replyData && $replyData->user_name === $_SESSION['username']) {
+            $stmtUpdate = $conn->prepare("UPDATE replies SET reply = :reply WHERE id = :id");
+            $stmtUpdate->execute([
+                ':reply' => $updatedReply,
+                ':id' => $reply_id
+            ]);
+        }
+    }
+
+    header("Location: " . APPURL . "/topics/topic.php?topics_id=" . $_GET['topics_id']);
+    exit;
+}
+
+
 }
 }
 ?>
@@ -88,7 +113,7 @@ if(isset($_POST['submit'])){
                     <h3>Replies</h3>
                     <ul class="replies">
                         <?php if($allReplies): ?>
-                            <?php foreach($allReplies as $reply): ?>
+                           <?php foreach($allReplies as $reply): ?>
                                 <li class="topic">
                                     <div class="row">
                                         <div class="col-md-2">
@@ -98,18 +123,31 @@ if(isset($_POST['submit'])){
                                             <p><strong><?php echo htmlspecialchars($reply->user_name); ?></strong></p>
                                             <p><?php echo htmlspecialchars($reply->reply); ?></p>
                                             <small>Posted on: <?php echo $reply->create_at; ?></small>
-                                        </div>
-                                        <?php if($reply->user_name == $_SESSION['username']) : ?>
-                                           <a class="btn btn-danger" 
+
+                                            <?php if($reply->user_name == $_SESSION['username']) : ?>
+                                                <!-- Delete button -->
+                                                <a class="btn btn-danger" 
                                                 href="../replies/delete.php?id=<?php echo $reply->id; ?>&topics_id=<?php echo $reply->topics_id; ?>" 
                                                 onclick="return confirm('Are you sure you want to delete this reply?');">
-                                                Delete
-                                            </a>
-                                            <a class="btn btn-warning" href="../replies/update.php?id=<?php echo $reply->id; ?>&topics_id=<?php echo $reply->topics_id; ?>" role="button">
-                                                Update
-                                            </a>
+                                                    Delete
+                                                </a>
 
-                                        <?php endif ?>
+                                                <!-- Toggle Edit Form -->
+                                                <button class="btn btn-warning" onclick="toggleEditForm(<?php echo $reply->id; ?>)">Edit</button>
+
+                                                <!-- Hidden Edit Form -->
+                                                <form method="post" action="topic.php?topics_id=<?php echo $topics_id; ?>" 
+                                                    id="edit-form-<?php echo $reply->id; ?>" 
+                                                    style="display:none; margin-top:10px;">
+                                                    <input type="hidden" name="reply_id" value="<?php echo $reply->id; ?>">
+                                                    <textarea name="update_reply" class="form-control" rows="4"><?php echo htmlspecialchars($reply->reply); ?></textarea>
+                                                    <br>
+                                                    <button type="submit" name="update_submit" class="btn btn-primary btn-sm">Save</button>
+                                                    <button type="button" class="btn btn-default btn-sm" onclick="toggleEditForm(<?php echo $reply->id; ?>)">Cancel</button>
+                                                </form>
+
+                                            <?php endif ?>
+                                        </div>
                                     </div>
                                 </li>
                             <?php endforeach; ?>
@@ -132,5 +170,12 @@ if(isset($_POST['submit'])){
         </div>
     </div>
 </div>
+<script>
+function toggleEditForm(id) {
+    let form = document.getElementById("edit-form-" + id);
+    form.style.display = (form.style.display === "none") ? "block" : "none";
+}
+</script>
+
 <?php require "../includes/footer.php"?>
 
