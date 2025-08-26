@@ -66,9 +66,9 @@ require "../includes/header.php";
 								<select name="category" class="form-control"  >
 									<option value="Design"<?php if($topic->category == "Design") echo "selected"; ?>>Design</option>
 									<option  value="Development"<?php if($topic->category == "Development") echo "selected"; ?>>Development</option>
-									<option value="Business & Marketing" <?php if($topic->category == "Business & Marketing") echo "selected"; ?>>Business & Marketing</option>
-									<option value="Search Engines" <?php if($topic->category == "Search Engines") echo "selected"; ?>>Search Engines</option>
-									<option value="cloud & Hosting" <?php if($topic->category == "cloud & Hosting") echo "selected"; ?>>Cloud & Hosting</option>
+									<option value="Marketing" <?php if($topic->category == "Marketing") echo "selected"; ?>>Marketing</option>
+									<option value="SEO" <?php if($topic->category == "SEO") echo "selected"; ?>>SEO</option>
+									<option value="Hosting" <?php if($topic->category == "Hosting") echo "selected"; ?>>Hosting</option>
 							</select>
 							</div>
 								<div class="form-group">

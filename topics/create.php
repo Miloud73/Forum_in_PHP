@@ -54,9 +54,9 @@ require "../includes/header.php";
 								<select name="category" class="form-control">
 									<option value="Design">Design</option>
 									<option  value="Development">Development</option>
-									<option value="Business & Marketing">Business & Marketing</option>
-									<option value="Search Engines">Search Engines</option>
-									<option value="cloud & Hosting">Cloud & Hosting</option>
+									<option value="Marketing">Marketing</option>
+									<option value="SEO">SEO</option>
+									<option value="Hosting">Hosting</option>
 							</select>
 							</div>
 								<div class="form-group">

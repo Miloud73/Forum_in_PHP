@@ -66,8 +66,8 @@ CREATE TABLE `topics` (
 
 INSERT INTO `topics` (`topics_id`, `user_name`, `title`, `category`, `body`, `user_image`, `create_at`) VALUES
 (1, 'nbv_v', 'aze', 'Development', 'aze', 'gravatar.jpg', '2024-08-26 09:29:29'),
-(2, 'miloud', 'sec topic', 'Search Engines', 'sec topics ', 'gravatar.jpg', '2024-11-01 08:30:32'),
-(3, 'miloud', 'thrd topics', 'cloud & Hosting', 'thrd topics', '', '2024-11-01 09:01:02');
+(2, 'miloud', 'sec topic', 'SEO', 'sec topics ', 'gravatar.jpg', '2024-11-01 08:30:32'),
+(3, 'miloud', 'thrd topics', 'Hosting', 'thrd topics', '', '2024-11-01 09:01:02');
 
 -- --------------------------------------------------------
 

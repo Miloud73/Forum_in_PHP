@@ -11,25 +11,20 @@
 	LEFT JOIN topics ON categories.name = topics.category GROUP BY (topics.category) ");
 	$stmtCategories->execute();
 
-	$allCategories = $stmtCategories->fetchAll(PDO::FETCH_OBJ)
+	$allCategories = $stmtCategories->fetchAll(PDO::FETCH_OBJ);
 	
 	
 
 ?>
 
 <div class="col-md-4">
-
-
-
 				<div class="sidebar">
-					
-					
 					<div class="block">
 					<h3>Categories</h3>
 					<div class="list-group block ">
 						<a href="#" class="list-group-item active">All Topics <span class="badge pull-right"><?php echo  $count_AllTopic->all_topics; ?></span></a> 
 						 <?php foreach($allCategories as $category): ?>
-						<a href="#" class="list-group-item"><?php echo $category->name ?><span class="color badge pull-right"><?php echo $category->count_categories ?></span></a>
+						<a href="/forum/categories/show.php?name=<?php echo $category->name ; ?>" class="list-group-item"><?php echo $category->name ?><span class="color badge pull-right"><?php echo $category->count_categories ?></span></a>
 						<?php endforeach ?>
 					</div>
 					</div>
