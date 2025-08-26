@@ -4,35 +4,16 @@
     $stmt->execute();
     $count_AllTopic = $stmt->fetch(PDO::FETCH_OBJ);
 	// end counting All Topics
-	// start counting Design topic
-	$stmtDesign = $conn->prepare("SELECT count(*) as design_topic from topics where category ='Design'");
-	$stmtDesign->execute();
-    $count_DesignTopic = $stmtDesign->fetch(PDO::FETCH_OBJ);
-	// end counting Design topic
 
-	// start counting Development topic
-	$stmtDevelopment = $conn->prepare("SELECT count(*) as Development_topic from topics where category ='Development'");
-	$stmtDevelopment->execute();
-    $count_DevelopmentTopic = $stmtDevelopment->fetch(PDO::FETCH_OBJ);
-	// end counting Development topic
+	// number of post inside every category
+	$stmtCategories = $conn ->prepare("SELECT categories.id AS id,categories.name AS name,
+	COUNT(topics.category) AS count_categories FROM categories
+	LEFT JOIN topics ON categories.name = topics.category GROUP BY (topics.category) ");
+	$stmtCategories->execute();
 
-	// start counting Business & Marketing topic
-	$stmtMarketing = $conn->prepare("SELECT count(*) as marketing_topic from topics where category ='Business & Marketing'");
-	$stmtMarketing->execute();
-    $count_MarketingTopic = $stmtMarketing->fetch(PDO::FETCH_OBJ);
-	// end counting Business & Marketing topic
+	$allCategories = $stmtCategories->fetchAll(PDO::FETCH_OBJ)
 	
-	// start counting Search Engines topic
-	$stmtSearch  = $conn->prepare("SELECT count(*) as Search_topic from topics where category ='Search Engines'");
-	$stmtSearch ->execute();
-    $count_SearchTopic = $stmtSearch->fetch(PDO::FETCH_OBJ);
-	// end counting Search Engines topic
-	// start counting Cloud & Hosting topic
-	$stmtCloud  = $conn->prepare("SELECT count(*) as Cloud_topic from topics where category ='Cloud & Hosting'");
-	$stmtCloud->execute();
-    $count_Cloud = $stmtCloud->fetch(PDO::FETCH_OBJ);
-	// end counting Cloud & Hosting topic
-		
+	
 
 ?>
 
@@ -47,11 +28,9 @@
 					<h3>Categories</h3>
 					<div class="list-group block ">
 						<a href="#" class="list-group-item active">All Topics <span class="badge pull-right"><?php echo  $count_AllTopic->all_topics; ?></span></a> 
-						<a href="#" class="list-group-item">Design<span class="color badge pull-right"><?php echo  $count_DesignTopic->design_topic; ?></span></a>
-						<a href="#" class="list-group-item">Development<span class="color badge pull-right"><?php echo  $count_DevelopmentTopic->Development_topic; ?></span></a>
-						<a href="#" class="list-group-item">Business & Marketing <span class="color badge pull-right"><?php echo  $count_MarketingTopic->marketing_topic; ?></span></a>
-						<a href="#" class="list-group-item">Search Engines<span class="color badge pull-right"><?php echo  $count_SearchTopic->Search_topic; ?></span></a>
-						<a href="#" class="list-group-item">Cloud & Hosting <span class="color badge pull-right"><?php echo  $count_Cloud->Cloud_topic; ?></span></a>
+						 <?php foreach($allCategories as $category): ?>
+						<a href="#" class="list-group-item"><?php echo $category->name ?><span class="color badge pull-right"><?php echo $category->count_categories ?></span></a>
+						<?php endforeach ?>
 					</div>
 					</div>
 
