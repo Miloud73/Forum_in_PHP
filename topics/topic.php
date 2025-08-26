@@ -21,8 +21,9 @@ if(isset($_GET['topics_id'])){
 
 
 // for replies section
-if(isset($_POST['submit'])){
-    if(empty($_POST['reply'])){
+// for replies section
+if (isset($_POST['submit'])) {
+    if (empty($_POST['reply'])) {
         echo "<script>alert('The reply is empty');</script>";
     } else {
         $reply = $_POST['reply'];
@@ -31,7 +32,7 @@ if(isset($_POST['submit'])){
         $user_name = $_SESSION['username'];
 
         $insert = $conn->prepare("INSERT INTO replies (reply, user_id, topics_id, user_name, user_image) 
-		VALUES (:reply, :user_id, :topics_id, :user_name, :user_image)");
+        VALUES (:reply, :user_id, :topics_id, :user_name, :user_image)");
         $insert->execute([
             ":user_name" => $user_name,
             ":user_image" => $user_image,
@@ -39,13 +40,14 @@ if(isset($_POST['submit'])){
             ":user_id" => $user_id,
             ":topics_id" => $topics_id
         ]);
-        header("location:".APPURL."/topics/topic.php?topics_id=".$topics_id."");
+        header("Location: " . APPURL . "/topics/topic.php?topics_id=" . $topics_id);
         exit;
     }
-
+}
+// ✅ Update reply
 if (isset($_POST['update_submit'])) {
-    $reply_id = $_POST['id'];
-    $updatedReply = trim($_POST['reply']);
+    $reply_id = $_POST['reply_id'];
+    $updatedReply = trim($_POST['update_reply']);
 
     if (!empty($updatedReply)) {
         // Verify reply exists
@@ -64,9 +66,6 @@ if (isset($_POST['update_submit'])) {
 
     header("Location: " . APPURL . "/topics/topic.php?topics_id=" . $_GET['topics_id']);
     exit;
-}
-
-
 }
 }
 ?>
