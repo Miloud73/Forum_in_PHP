@@ -17,6 +17,8 @@ if(isset($_GET['name'])){
     ");
     $stmt->execute([':name' => $name]);
     $allTopics = $stmt->fetchAll(PDO::FETCH_OBJ);
+}else{
+    header("location: ".APPURL."/404.php");
 }
 ?>
 

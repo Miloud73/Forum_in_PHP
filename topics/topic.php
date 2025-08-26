@@ -20,7 +20,7 @@ if(isset($_GET['topics_id'])){
     $allReplies = $stmtReplies->fetchAll(PDO::FETCH_OBJ);
 
 
-// for replies section
+
 // for replies section
 if (isset($_POST['submit'])) {
     if (empty($_POST['reply'])) {
@@ -67,6 +67,8 @@ if (isset($_POST['update_submit'])) {
     header("Location: " . APPURL . "/topics/topic.php?topics_id=" . $_GET['topics_id']);
     exit;
 }
+}else{
+    header("location: ".APPURL."/404.php");
 }
 ?>
 <div class="container">
