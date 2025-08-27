@@ -6,7 +6,7 @@
                 <p class="lead">
                     The page you’re looking for doesn’t exist.
                   </p>
-                <a href="index.php" class="btn btn-primary">Go Home</a>
+                <a href="<?php echo APPURL; ?>" class="btn btn-primary">Go Home</a>
             </div>
         </div>
-<?php require "includes/footer.php"; ?>
+<!-- <?php //require "includes/footer.php"; ?> -->

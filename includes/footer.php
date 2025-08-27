@@ -12,11 +12,7 @@
 	$stmtCategories->execute();
 
 	$allCategories = $stmtCategories->fetchAll(PDO::FETCH_OBJ);
-	
-	
-
 ?>
-
 <div class="col-md-4">
 				<div class="sidebar">
 					<div class="block">

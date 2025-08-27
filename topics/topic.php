@@ -2,7 +2,7 @@
 require "../confing/confing.php";
 require "../includes/header.php";
 
-if(isset($_GET['topics_id'])){
+if(isset($_GET['topics_id'])) {
     $topics_id= $_GET['topics_id'];
 
     $stmt = $conn->prepare("SELECT * FROM topics WHERE topics_id = :id");
