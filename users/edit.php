@@ -11,9 +11,9 @@ require "../includes/header.php";
 		$stmt->execute(['id' => $id]);
 		$user = $stmt->fetch(PDO::FETCH_OBJ);
 
-		// if($topic->user_name !== $_SESSION['username']){
-		// 	header("location: ".APPURL."");
-		// }
+		 if($user->id !== $_SESSION['user_id']){
+		 	header("location: ".APPURL."");
+		 }
 
 
 	}
@@ -50,11 +50,11 @@ require "../includes/header.php";
 						<hr>
 						<form role="form" method="post" action="edit.php?id=<?php echo $id ?>">
 							<div class="form-group">
-								<label>Topic Title</label>
+								<label>Email</label>
 								<input type="text" value="<?php echo htmlspecialchars($user->email) ?>" class="form-control" name="email" placeholder="Enter an email">
 							</div>
 								<div class="form-group">
-									<label>Topic Body</label>
+									<label>About</label>
 									<textarea id="about" rows="10" cols="80" class="form-control" name="about" ><?php echo htmlspecialchars($user->about) ?></textarea>
 									<script>CKEDITOR.replace('about');</script>
 								</div>

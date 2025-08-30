@@ -33,6 +33,12 @@ require "../includes/header.php";
 			
 		}
 	}
+
+	// grapping categories
+	$stmt = $conn->prepare("SELECT * from categories");
+	$stmt->execute();
+
+	$allCategories=$stmt->fetchAll(PDO::FETCH_OBJ);
 	
 ?>
     <div class="container">
@@ -52,11 +58,10 @@ require "../includes/header.php";
 							<div class="form-group">
 								<label>Category</label>
 								<select name="category" class="form-control">
-									<option value="Design">Design</option>
-									<option  value="Development">Development</option>
-									<option value="Marketing">Marketing</option>
-									<option value="SEO">SEO</option>
-									<option value="Hosting">Hosting</option>
+									<?php foreach ($allCategories as $cate) : ?>
+									<option value="<?php echo $cate->name; ?>"><?php echo $cate->name; ?></option>
+									<?php endforeach; ?>
+									
 							</select>
 							</div>
 								<div class="form-group">
